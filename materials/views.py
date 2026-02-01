@@ -1,4 +1,3 @@
-from django.template.context_processors import request
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
@@ -8,6 +7,7 @@ from users.permissions import IsModer, IsOwner
 from .models import Course, Lesson
 from .paginators import CustomPagination
 from .serializers import CourseSerializer, LessonSerializer
+from .task import send_information_about_course
 
 
 class CourseViewSet(ModelViewSet):
@@ -28,6 +28,12 @@ class CourseViewSet(ModelViewSet):
         course = serializer.save()
         course.owner = self.request.user
         course.save()
+
+    def perform_update(self, serializer):
+        course = serializer.save()
+        email_list = course.subscriptions.values_list("user__email", flat=True)
+        if email_list.exists():
+            send_information_about_course.delay(list(email_list))
 
 
 class LessonListAPIView(generics.ListAPIView):

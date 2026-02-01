@@ -6,10 +6,14 @@ from rest_framework.response import Response
 
 from materials.models import Course
 from users.models import Payment, Subscription, User
-from users.serializers import PaymentSerializer, UserSerializer
+from users.serializers import PaymentSerializer, UserSerializer, MyTokenObtainPairSerializer
 from users.services import (create_stripe_price, create_stripe_product,
                             create_stripe_sessions)
+from rest_framework_simplejwt.views import TokenObtainPairView
 
+
+class CustomTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
 
 class PaymentViewSet(viewsets.ModelViewSet):
     queryset = Payment.objects.all()
@@ -46,7 +50,7 @@ class UserViewSet(viewsets.ModelViewSet):
 class SubscriptionAPIView(views.APIView):
     def post(self, request, *args, **kwargs):
         user = request.user
-        course_id = request.data["course_id"]
+        course_id = request.data.get("course_id")
         course_item = get_object_or_404(Course, id=course_id)
         subs_item, created = Subscription.objects.get_or_create(
             user=user, course=course_item

@@ -14,7 +14,7 @@ class Course(models.Model):
         help_text="Введите описание", verbose_name="Описание"
     )
     owner = models.ForeignKey(
-        to="users.User", on_delete=models.CASCADE, related_name="course"
+        to="users.User", on_delete=models.CASCADE, related_name="course", null=True, blank=True
     )
 
 

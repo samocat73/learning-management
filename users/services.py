@@ -29,15 +29,3 @@ def create_stripe_sessions(id_stripe_price):
         mode="payment",
     )
     return session.id, session.url
-
-
-def set_schedule(*args, **kwargs):
-    schedule, created = IntervalSchedule.objects.get_or_create(
-        every=1,
-        period=IntervalSchedule.DAYS,
-    )
-    PeriodicTask.objects.get_or_create(
-        interval=schedule,
-        name="Blocking inactive users",
-        task="users.task.checking_last_login_date",
-    )

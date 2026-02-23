@@ -3,17 +3,19 @@ from rest_framework import filters, views, viewsets
 from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 from materials.models import Course
 from users.models import Payment, Subscription, User
-from users.serializers import PaymentSerializer, UserSerializer, MyTokenObtainPairSerializer
+from users.serializers import (MyTokenObtainPairSerializer, PaymentSerializer,
+                               UserSerializer)
 from users.services import (create_stripe_price, create_stripe_product,
                             create_stripe_sessions)
-from rest_framework_simplejwt.views import TokenObtainPairView
 
 
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
+
 
 class PaymentViewSet(viewsets.ModelViewSet):
     queryset = Payment.objects.all()

@@ -15,3 +15,15 @@ def send_information_about_course(email_list):
         recipient_list=email_list,
         from_email=settings.EMAIL_HOST_USER,
     )
+
+
+@shared_task
+def checking_last_login_date(*args, **kwargs):
+    active_interval = timezone.now() - relativedelta(months=4)
+    users = User.objects.filter(
+        last_login__lt=active_interval,
+        is_active=True,
+    )
+    for user in users:
+        user.is_active = False
+        user.save()

@@ -1,10 +1,8 @@
-import stripe
-from django.conf import settings
-
 from datetime import datetime, timedelta
 
-from django_celery_beat.models import PeriodicTask, IntervalSchedule
-
+import stripe
+from django.conf import settings
+from django_celery_beat.models import IntervalSchedule, PeriodicTask
 
 stripe.api_key = settings.API_KEY_STRIPE
 
@@ -36,7 +34,7 @@ def create_stripe_sessions(id_stripe_price):
 def set_schedule(*args, **kwargs):
     schedule, created = IntervalSchedule.objects.get_or_create(
         every=1,
-        period=IntervalSchedule.MINUTES,
+        period=IntervalSchedule.DAYS,
     )
     PeriodicTask.objects.get_or_create(
         interval=schedule,

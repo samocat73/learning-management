@@ -7,7 +7,7 @@ from users.permissions import IsModer, IsOwner
 from .models import Course, Lesson
 from .paginators import CustomPagination
 from .serializers import CourseSerializer, LessonSerializer
-from .task import send_information_about_course
+from .tasks import send_information_about_course
 
 
 class CourseViewSet(ModelViewSet):

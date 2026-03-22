@@ -70,7 +70,7 @@ services:
 
   celery_beat:
     build: .
-    command: celery -A config beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    command: celery -A config beat -l INFO
     env_file:
       - .env
     depends_on:

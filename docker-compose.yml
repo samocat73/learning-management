@@ -69,7 +69,6 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
-    image: mod_30.1-33/celery
 
   celery_beat:
     build: .

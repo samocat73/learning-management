@@ -87,7 +87,7 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_KEY }}
 
       - name: Copy docker-compose.yml to server
-        run: scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null docker-compose.yml ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:/home/my-project/
+        run: scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null docker-compose.yml ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:/home/
 
       - name: Deploy to server
         run: |

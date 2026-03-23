@@ -70,8 +70,8 @@ jobs:
       - name: Build images with Docker Compose
         run: docker compose -f docker-compose.yml build
 
-      - name: Push Docker image in Docker hub
-        run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:${{ github.sha }}
+      - name: Push all images to Docker Hub
+        run: docker compose -f docker-compose.yml push
 
   deploy:
     needs: build

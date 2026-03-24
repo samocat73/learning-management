@@ -67,11 +67,18 @@ jobs:
       - name: Log in Docker hub
         run: echo ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }} | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
 
-      - name: Build images with Docker Compose
-        run: docker compose -f docker-compose.yml build
+      - name: Build Docker image
+        run: docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:${{ github.sha }} .
 
-      - name: Push all images to Docker Hub
-        run: docker compose -f docker-compose.yml push
+      - name: Push Docker image in Docker hub
+        run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:${{ github.sha }}
+
+
+#      - name: Build images with Docker Compose
+#        run: docker compose -f docker-compose.yml build
+#
+#      - name: Push all images to Docker Hub
+#        run: docker compose -f docker-compose.yml push
 
 #  deploy:
 #    needs: build

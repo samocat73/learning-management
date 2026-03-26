@@ -82,6 +82,9 @@ jobs:
         - name: Deploy to server
           run: |
             ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
-            cd /learning-management || git clone https://github.com/samocat73/learning-management.git
-            cd /learning-management
+            cd ~/learning-management || git clone https://github.com/samocat73/learning-management.git
+            cd ~/learning-management
+            git pull
+            echo "${{ secrets.ENV_FILE }}" > .env
+            docker-compose up -d
             EOF

@@ -1,8 +1,5 @@
-from datetime import datetime, timedelta
-
 import stripe
 from django.conf import settings
-from django_celery_beat.models import IntervalSchedule, PeriodicTask
 
 stripe.api_key = settings.API_KEY_STRIPE
 

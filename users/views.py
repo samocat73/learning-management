@@ -1,4 +1,3 @@
-from django.forms import model_to_dict
 from rest_framework import filters, views, viewsets
 from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import AllowAny

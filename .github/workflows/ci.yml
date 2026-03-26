@@ -65,7 +65,7 @@ jobs:
         uses: docker/setup-compose-action@v2
 
       - name: Start containers with Docker Compose
-        run: docker-compose up -d
+        run: docker compose up -d
 
 
 

@@ -12,3 +12,15 @@ docker-compose up
 ```commandline
 /swagger/
 ```
+## Размещение проекта на виртуальной машине
+## Шаг 1
+**Настройте GitHub Secrets, в нем должны быть:**
+**ENV_FILE #Сюда нужно поместить заполненные данные из шаблона .env.example** 
+**DOCKER_HUB_USERNAME**
+**SERVER_IP**
+**SSH_KEY**
+**SSH_USER**
+## Шаг 2
+**На виртуальную машину установите Git и Docker**
+**Настройте файрвол**
+## WorkFloy запускается при каждом push и pull_request
